@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #f8f5f4;
+  --color-surface: #ffffff;
+  --color-ink: #241a1b;
+  --color-muted: #756568;
+  --color-line: #e9e0e1;
+  --color-brand: #d53741;
+  --color-brand-dark: #b02a33;
+  --color-brand-soft: #fdecee;
+  --color-sand: #f0e7e3;
+  --color-warn: #b45309;
+  --color-warn-soft: #fef3c7;
+  --color-danger: #9f1d24;
+  --color-danger-soft: #fde8e7;
+  --color-info: #1d4ed8;
+  --color-info-soft: #e8efff;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --radius-xl2: 1.25rem;
+}
+
+/*
+ * Modo oscuro: se sobrescriben las mismas variables sobre <html data-theme="dark">,
+ * así cada utilidad (bg-surface, text-ink, border-line…) cambia sola en toda la app.
+ * La paleta es cálida para conservar la identidad de la marca.
+ */
+:root {
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-canvas: #151011;
+  --color-surface: #201819;
+  --color-ink: #f2e9e9;
+  --color-muted: #a2908f;
+  --color-line: #352929;
+  --color-brand: #e04a51;
+  --color-brand-dark: #ea5f66;
+  --color-brand-soft: #3a1d20;
+  --color-sand: #291f20;
+  --color-warn: #e9a23b;
+  --color-warn-soft: #392811;
+  --color-danger: #f0737a;
+  --color-danger-soft: #3f1a1c;
+  --color-info: #8fb0f5;
+  --color-info-soft: #1d2b4c;
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-canvas text-ink antialiased;
+    font-family: var(--font-sans);
+  }
+  button {
+    cursor: pointer;
+  }
+  ::selection {
+    @apply bg-brand/20;
+  }
+}
+
+@layer utilities {
+  .safe-bottom {
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 0.5rem);
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  /* Landing: tipografía propia y un solo momento de entrada */
+  .landing-root {
+    font-family: 'Archivo', var(--font-sans);
+  }
+  .landing-display {
+    font-weight: 800;
+    font-stretch: 112%;
+    letter-spacing: -0.015em;
+  }
+  .rise {
+    animation: landing-rise 0.65s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+}
+
+@keyframes landing-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white;
+  }
+  /* El PDF/papel siempre sale en claro, aunque la app esté en modo oscuro. */
+  :root[data-theme='dark'] {
+    color-scheme: light;
+    --color-canvas: #f8f5f4;
+    --color-surface: #ffffff;
+    --color-ink: #241a1b;
+    --color-muted: #756568;
+    --color-line: #e9e0e1;
+    --color-brand: #d53741;
+    --color-brand-dark: #b02a33;
+    --color-brand-soft: #fdecee;
+    --color-sand: #f0e7e3;
+    --color-warn: #b45309;
+    --color-warn-soft: #fef3c7;
+    --color-danger: #9f1d24;
+    --color-danger-soft: #fde8e7;
+    --color-info: #1d4ed8;
+    --color-info-soft: #e8efff;
+  }
+}
