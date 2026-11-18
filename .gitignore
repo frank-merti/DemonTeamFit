@@ -21,3 +21,6 @@ dist-ssr
 # Secrets locales (nunca al repo)
 .env
 .env.*
+
+# Notas internas de sesión (nunca al repo)
+NOTAS-SESION.md
